@@ -65,13 +65,21 @@ def writeSign(i, skylt, typ):   #KLAR
 
 
 
-def SkrivMotor(c,desc,a, motor):
-    Motor.cell(row=motor, column=1).value = c
-    Motor.cell(row=motor, column=2).value = desc
-    a = a.split('@')
-    Motor.cell(row=motor, column=5).value = a[-1]
+def SkrivMotor10(rows): #KLAR
+    rad = 5  # Startrad for Motordata
+    motor=['Frånluftsfläkt','Pump','Tilluftsfläkt']
+    for i in range(7,rows):
+        keyword = AS1.cell(row=i, column=3).value
+        if keyword is not None and any(x in keyword for x in motor):
+            F = AS1.cell(row=i, column=6).value
+            Motor.cell(row=rad, column=1).value = AS1.cell(row=i, column=2).value
+            Motor.cell(row=rad, column=2).value = AS1.cell(row=i, column=3).value
+            F = F.split('@')
+            Motor.cell(row=rad, column=5).value = F[-1]
+            rad += 1
 
 def SkrivEgenprovning(c,desc,a,egen):
+    rad = 4 #Startrad
     Egen.cell(row=egen, column=1).value = c
     Egen.cell(row=egen, column=2).value = desc
     #Egen.cell(row=egen, column=5).value = a
@@ -81,7 +89,7 @@ def SkrivEgenprovning(c,desc,a,egen):
 
 
 
-motor = 5   #Startrad for Motordata
+
 egen = 4    #Startrad for Egenprovningen
 wb = load_workbook('AS1.xlsx')  #Laddar dokument
 AS1 = wb['AS1']                 #Laddar flik AS1
@@ -94,6 +102,7 @@ rows = AS1.max_row              #Kollar vilken sista raden ar
 
 systemName10(rows)
 SkrivSkylt10(rows)
+SkrivMotor10(rows)
 # for i in range(7,rows):
     # t = AS1.cell(row=i, column=1).value
     # m = AS1.cell(row=i, column=6).value

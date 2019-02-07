@@ -1,16 +1,26 @@
 from openpyxl import *
 
+def systemName10(rows):       #KLAR
+    system = "Not defined"
+    for i in range(7,rows):
+        bold = AS1.cell(row=i, column=2).font
+        beteckning = AS1.cell(row=i, column=2).value
+        if bold.b is True:
+            system =  AS1.cell(row=i, column=2).value
+            #print(system)
+        elif beteckning is None:
+            n=0
+        elif system in beteckning:
+            allreadydone = 1
+        else:
+            AS1.cell(row=i, column=2).value = system + "-" + beteckning
 
-def SkrivSkylt10(rows):
+
+def SkrivSkylt10(rows): #KLAR
     skylt = 27  # Startrad for skyltlista
     nosign =['Elmätare','Tidkanal','Larm']
     for i in range(7,rows): #Går egenom alla rader från rad 7 till sista raden.
         keyword = AS1.cell(row=i, column=3).value
-
-        # if keyword is None:
-        #     break
-        # elif any(x in keyword for x in nosign):
-        #     break
         A = AS1.cell(row=i, column=1).value  #Plockar fram om någon skrivit något i Optionkolumn.
         C = AS1.cell(row=i, column=3).value
         D = AS1.cell(row=i, column=4).value
@@ -42,12 +52,16 @@ def SkrivSkylt10(rows):
             skylt += 1
 
 
-def writeSign(i, skylt, typ):
+def writeSign(i, skylt, typ):   #KLAR
     Skyltlista.cell(row=skylt, column=2).value = "TYP " + typ
     Skyltlista.cell(row=skylt, column=8).value = "1"
     Skyltlista.cell(row=skylt, column=10).value = AS1.cell(row=i, column=2).value.upper()
     Skyltlista.cell(row=skylt, column=11).value = AS1.cell(row=i, column=3).value.upper()
-    Skyltlista.cell(row=skylt, column=12).value = AS1.cell(row=5, column=2).value.upper()
+    if "200" in typ:
+        Skyltlista.cell(row=skylt, column=12).value = AS1.cell(row=5, column=2).value.upper()
+
+
+
 
 
 
@@ -62,21 +76,7 @@ def SkrivEgenprovning(c,desc,a,egen):
     Egen.cell(row=egen, column=2).value = desc
     #Egen.cell(row=egen, column=5).value = a
 
-def systemName10(rows):       #KLAR
-    system = "Not defined"
-    for i in range(7,rows):
-        bold = AS1.cell(row=i, column=2).font
-        beteckning = AS1.cell(row=i, column=2).value
-        if bold.b is True:
-            system =  AS1.cell(row=i, column=2).value
-            #print(system)
-        elif beteckning is None:
-            n=0
-        elif system in beteckning:
-            allreadydone = 1
-        else:
-            AS1.cell(row=i, column=2).value = system + "-" + beteckning
-            #print(i)
+
 
 
 

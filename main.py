@@ -1,11 +1,55 @@
 from openpyxl import *
-from openpyxl.worksheet.datavalidation import DataValidation
 
-def SkrivSkylt(c,desc,a,skylt):
-    #Testatar Github
-    Skyltlista.cell(row=skylt, column=10).value = c.upper()
-    Skyltlista.cell(row=skylt, column=11).value = desc.upper()
-    Skyltlista.cell(row=skylt, column=12).value = a.upper()
+
+def SkrivSkylt10(rows):
+    skylt = 27  # Startrad for skyltlista
+    nosign =['Elmätare','Tidkanal','Larm']
+    for i in range(7,rows): #Går egenom alla rader från rad 7 till sista raden.
+        keyword = AS1.cell(row=i, column=3).value
+
+        # if keyword is None:
+        #     break
+        # elif any(x in keyword for x in nosign):
+        #     break
+        A = AS1.cell(row=i, column=1).value  #Plockar fram om någon skrivit något i Optionkolumn.
+        C = AS1.cell(row=i, column=3).value
+        D = AS1.cell(row=i, column=4).value
+        for col in range(9,18): #Kollar igenom kolumn I-Q om det är någon I/O-kopplad till komponenten.
+            if keyword is not None and any(x in keyword for x in nosign):
+                break
+            V = AS1.cell(row=i, column=col).value
+            if V is not None:
+                writeSign(i,skylt,"200")
+                skylt += 1
+                break
+            if C is not None and "Rökdetektor" in C:
+                writeSign(i, skylt, "200")
+                skylt += 1
+                break
+        if D is not None and "Siox" in D:
+            B = AS1.cell(row=i, column=2).value
+            split = B.split("-")
+            del split[-1]
+            S = "-".join(split) + "-BSC" + str(AS1.cell(row=i, column=8).value)
+            Skyltlista.cell(row=skylt, column=2).value = "TYP 200"
+            Skyltlista.cell(row=skylt, column=8).value = "1"
+            Skyltlista.cell(row=skylt, column=10).value = S
+            Skyltlista.cell(row=skylt, column=11).value = "BRANDSPJÄLLSCENTRAL"
+            Skyltlista.cell(row=skylt, column=12).value = AS1.cell(row=5, column=2).value.upper()
+            skylt += 1
+        if A is not None and "s" in A:
+            writeSign(i, skylt, "100")
+            skylt += 1
+
+
+def writeSign(i, skylt, typ):
+    Skyltlista.cell(row=skylt, column=2).value = "TYP " + typ
+    Skyltlista.cell(row=skylt, column=8).value = "1"
+    Skyltlista.cell(row=skylt, column=10).value = AS1.cell(row=i, column=2).value.upper()
+    Skyltlista.cell(row=skylt, column=11).value = AS1.cell(row=i, column=3).value.upper()
+    Skyltlista.cell(row=skylt, column=12).value = AS1.cell(row=5, column=2).value.upper()
+
+
 
 def SkrivMotor(c,desc,a, motor):
     Motor.cell(row=motor, column=1).value = c
@@ -18,13 +62,13 @@ def SkrivEgenprovning(c,desc,a,egen):
     Egen.cell(row=egen, column=2).value = desc
     #Egen.cell(row=egen, column=5).value = a
 
-def systemName(rows):       #KLAR
+def systemName10(rows):       #KLAR
     system = "Not defined"
     for i in range(7,rows):
         bold = AS1.cell(row=i, column=2).font
         beteckning = AS1.cell(row=i, column=2).value
         if bold.b is True:
-            system = beteckning
+            system =  AS1.cell(row=i, column=2).value
             #print(system)
         elif beteckning is None:
             n=0
@@ -36,7 +80,7 @@ def systemName(rows):       #KLAR
 
 
 
-skylt = 27  #Startrad for kyltlista
+
 motor = 5   #Startrad for Motordata
 egen = 4    #Startrad for Egenprovningen
 wb = load_workbook('AS1.xlsx')  #Laddar dokument
@@ -48,8 +92,8 @@ Egen = wb['Egenkontroll']       #Laddar flik Egenkontroll
 rows = AS1.max_row              #Kollar vilken sista raden ar
 #rows = 40
 
-systemName(rows)
-
+systemName10(rows)
+SkrivSkylt10(rows)
 # for i in range(7,rows):
     # t = AS1.cell(row=i, column=1).value
     # m = AS1.cell(row=i, column=6).value

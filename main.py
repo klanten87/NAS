@@ -85,9 +85,18 @@ def SkrivEgenprovning(c,desc,a,egen):
     #Egen.cell(row=egen, column=5).value = a
 
 
+def keywordSort10(rows):
+    #Tar nyckelordet och ser vad den ska generera fram.
+    #Skickar sedan rad till Material,Bestallning, Larm och Installningsvarde
 
+def skrivBeställning10(row):
+    #Hämtar beställningsunderlag från rad som fås från keywordSort och skriver till Beställningslistan
+    #så kollar man om det finns någon som heter lika i fabrikat och typ, summerar och sedan lägger
+    # sedan den i en array som man kollar
+    #det första man gör i funktionen och breakar funktionen. Annan lev sorteras bort
 
-
+def skrivMaterial10(row):
+    #
 
 
 egen = 4    #Startrad for Egenprovningen

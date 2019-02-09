@@ -1,6 +1,11 @@
 from openpyxl import load_workbook
 from openpyxl.styles import Font
 
+wb = load_workbook('AS1.xlsx')      #Laddar dokument
+AS1 = wb['AS1']                     #Laddar flik AS1
+rows = AS1.max_row                  #Kollar vilken sista raden ar
+E = AS1.cell(row=2, column=5).value #Laddar vilka skript som ska köras.
+Skyltlista = wb['Skyltlista']       # Laddar flik Skyltlista
 def systemName10(rows):       #KLAR
     system = "Not defined"
     for i in range(7,rows):
@@ -49,7 +54,7 @@ def SkrivSkylt10(rows): #KLAR
             skylt += 1
 
 
-def writeSign(i, skylt, typ):   #KLAR
+def writeSign(i, skylt, typ):   #KLAR tillhör SkrivSkylt10
     Skyltlista.cell(row=skylt, column=2).value = "TYP " + typ
     Skyltlista.cell(row=skylt, column=8).value = "1"
     Skyltlista.cell(row=skylt, column=10).value = AS1.cell(row=i, column=2).value.upper()
@@ -64,6 +69,7 @@ def writeSign(i, skylt, typ):   #KLAR
 
 def SkrivMotor10(rows): #KLAR
     rad = 5  # Startrad for Motordata
+    Motor = wb['Provning motorer']  # Laddar flik Provning motorer
     motor=['Frånluftsfläkt','Pump','Tilluftsfläkt']
     for i in range(7,rows):
         keyword = AS1.cell(row=i, column=3).value
@@ -76,6 +82,7 @@ def SkrivMotor10(rows): #KLAR
             rad += 1
 
 def SkrivEgenprovning10(rows):  #KLAR
+    Egen = wb['Egenkontroll']  # Laddar flik Egenkontroll
     rad = 4 #Startrad
     switch =['Larm','Tidkanal','Elmätare']
     for i in range(7,rows):
@@ -119,18 +126,15 @@ def SkrivEgenprovning10(rows):  #KLAR
 
 
 
-wb = load_workbook('AS1.xlsx')  #Laddar dokument
-AS1 = wb['AS1']                 #Laddar flik AS1
-Skyltlista = wb['Skyltlista']   #Laddar flik Skyltlista
-Motor = wb['Provning motorer']  #Laddar flik Provning motorer
-Egen = wb['Egenkontroll']       #Laddar flik Egenkontroll
 
-rows = AS1.max_row              #Kollar vilken sista raden ar
-
-systemName10(rows)
-SkrivSkylt10(rows)
-SkrivMotor10(rows)
-SkrivEgenprovning10(rows)
+if "B" in E:
+    systemName10(rows)
+if "S" in E:
+    SkrivSkylt10(rows)
+if "M" in E:
+    SkrivMotor10(rows)
+if "E" in E:
+    SkrivEgenprovning10(rows)
 
 
 wb.save('AS1_genererad.xlsx')

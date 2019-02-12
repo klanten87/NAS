@@ -1,0 +1,213 @@
+def Avluftsspjall(i):
+	#Material
+	#Beställning
+    return("000")
+def Avluftstemperatur(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	return("000")
+def Brandspjall(i):
+	#Material
+	#Larm - Brandspjäll fel läge 2 m
+	#Inställning - Motionering Söndag 23:55-23:59
+	return("000")
+def Differenstryckgivare(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	#Larm - Regleravvikelse +/-3KPa 15 m
+	return("000")
+def Elmatare(i):
+	#Material
+	return("000")
+def Expansionskarl(i):
+	#Larm - Låg tryck expansionkälr 2 m
+	return("000")
+def Filtervakt(i):
+	#Material
+	#Beställning
+	#Larm - Smutsiga filter 15 m
+	return("000")
+def Flodesgivare(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	#Larm - Regleravvikelse 15 l/s 15 m
+	#Inställning - Börvärde flöde Min/Max	15/30 l/s
+	return("000")
+def Framledningstemperatur(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	#Larm - Regleravvikelse +/-3°C 15 m
+	#Inställning - Börvärde Utetemp X -20°C, -10°C, 0°C, 10°C, 20°C
+	#Inställning - Börvärde framledning 65°C, 55°C, 47°, 32°C, 20°C
+	return("000")
+def Frysskyddstemperatur(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	#Larm - Frysvaktslarm 7°C A 3 s
+	#Inställning - Varmhållning vid stillastående 20°C
+	return("000")
+def Franluftsflakt(i):
+	#Material
+	#Larm - Driftfel frånluftsfläkt 2 m
+	return("000")
+def Franluftsspjall(i):
+	#Material
+	#Beställning
+	return("000")
+def Franluftstemperatur(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	return("000")
+def Kallvattenmatare(i):
+	#Material
+	#Beställning
+	return("000")
+def Kylmaskin(i):
+	#Material
+	#Larm - Summalarm Kylmaskin 30 s
+	return("000")
+def Larm(i):
+	#Larm - %%Benämning%% 10 s
+	return("000")
+def Ljusgivare(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel
+	#Inställning - Ljusnivå 80 Lux
+
+	return("000")jusgivare")
+def Luftkvalitegivare(i):
+	#Material
+	#BEställning
+	#Larm - Givarfel 30 s
+	#Larm - Hög CO²-halt 900ppm 15 m
+	#Inställning - Börvärde Luftkvalité 800 ppm
+    return("000")
+def Pump(i):
+	#Material
+	#Larm - Driftfel pump 2 m
+	#Inställning - Pumpstart 7°C
+	#Inställning - Pumpstopp 17°C
+	return("000")
+def Returledningstemperatur(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	return("000")
+def Rumstemperatur(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	#Larm - Hög rumstemperatur 23°C 15m
+	#Larm - Låg rumstemperatur 17°C 15m
+	#Inställning - Börvärde rumstemperatur 21°C
+	return("000")
+def Rokdetektor(i):
+	##Material
+	#Beställning
+	#Larm - Utlöst rökdetektor 10 s
+	#Larm - Servicelarm rökdetektor 10 s
+	return("000")
+def Spjallstalldon(i):
+	#Material
+	#Beställning
+	return("000")
+def Tidkanal(i):
+	#Inställning - %%Benämning%% M-F 07:00-16:00
+	return("000")
+def Tilluftsflakt(i):
+	#Material
+	#Larm - Driftfel tilluftsfläkt 2 m
+	return("000")
+def Tilluftsspjall(i):
+	#Material
+	#Beställning
+	return("000")
+def Tilluftstemperatur(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	#Larm - Regleravvikelse +/-3°C 15m
+	#Inställning - Börvärde tilluftstemp 19°C
+	return("000")
+def TilluftstemperaturVVX(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	return("000")
+def Tryckgivare(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	#Larm - Regleravvikelse +/-10Pa 15m
+	#Larm - Fläktvakt 50Pa 5m
+	#Inställning - Börvärde tryck 150 Pa
+	return("000")
+def Tryckvakt(i):
+	#Material
+	#Beställning
+	#Larm - Driftfel 30 s
+	return("000")
+def Flaktvakt(i):
+	#Material
+	#Beställning
+	#Larm - Driftfel 30 s
+	return("000")
+def Uteluftsspjall(i):
+	#Material
+	#Beställning
+	return("000")
+def Uteluftskanalstemperatur(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	return("000")
+def Utomhustemperatur(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	return("000")
+def Varmvattenmatare(i):
+	#Material
+	#Beställning
+	return("000")
+def VAVspjall(i):
+	#Material
+	return("000")
+def Ventilstalldon(i):
+	#Material
+	#Beställning
+	return("000")
+def VVCtemperatur(i):
+	#Material
+	#Beställning
+	#Larm - Givarfel 30 s
+	#Larm - Låg returtempertur 40°C 15 m
+	return("000")
+def Varmemangdsmatare(i):
+	#Material
+	#Beställning
+	return("000")
+def Varmevaxlare(i):
+	#Larm - Summalarm 10s
+	#Larm - Låg verkningsgrad 50% 30 m
+	return("000")
+def Forlangdventilation(i):
+	#Material
+	#Beställning
+	#Instälning - Eftergångstid 1 timme
+	return("000")
+def Serviceomkopplare(i):
+	#Larm - Serviceomkopplare i fel läge 10s
+	return("000")
+def Elbatteri(i):
+	#Material
+	#Larm - Överhettningslarm
+	#Inställningsvärde - Eftergångstid 5m
+    return("000")

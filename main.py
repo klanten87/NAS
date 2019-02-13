@@ -619,7 +619,7 @@ def skrivLarm(i,larm,text,level,klass,delay):
 
 def skrivMaterial(i,material):
     fabrikat = AS1.cell(row=i, column=4).value
-    typ = AS1.cell(row=i, column=4).value
+    typ = AS1.cell(row=i, column=5).value
     Listor.cell(row=material, column=7).value = AS1.cell(row=i, column=2).value
     Listor.cell(row=material, column=8).value = AS1.cell(row=i, column=3).value
     if fabrikat is not None and typ is not None and fabrikat in typ:

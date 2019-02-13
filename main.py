@@ -630,6 +630,56 @@ def skrivMaterial(i,material):
         Listor.cell(row=material, column=9).value = typ
 
 
+def skrivAvrop(rows):
+    fabrikat = [
+         "Abelko",
+         "Belimo",
+         "Calectro",
+         "Danfoss",
+         "EkoVent",
+         "ESBE",
+         "Fidelix",
+         "Fläktwoods",
+         "Grundfos",
+         "HAGAB",
+         "IV",
+         "Kamstrup",
+         "Produal",
+         "Regin",
+         "Schnieder",
+         "Siemens",
+         "Siox",
+         "Swegon"
+    ]
+    avrop = 1
+    for f in fabrikat:
+        rubrik = 0
+        for i in range(7, rows):
+            D = AS1.cell(row=i, column=4).value
+            if D is not None and f in D:
+                if rubrik is 0:
+                    avrop += 1
+                    Avrop.cell(row=avrop, column=1).value = f
+                    Avrop.cell(row=avrop, column=1).font = Font(bold=True)
+                    rubrik = 1
+                    avrop += 1
+                E = AS1.cell(row=i, column=5).value
+                if E is not None and "," in E:
+                    E = E.split(",")
+                    for e in E:
+                        Avrop.cell(row=avrop, column=1).value = e
+                        Avrop.cell(row=avrop, column=2).value = AS1.cell(row=i, column=2).value
+                        Avrop.cell(row=avrop, column=3).value = "1"
+                        avrop += 1
+                else:
+                    Avrop.cell(row=avrop, column=1).value = E
+                    Avrop.cell(row=avrop, column=2).value = AS1.cell(row=i, column=2).value
+                    Avrop.cell(row=avrop, column=3).value = "1"
+                    avrop +=1
+
+
+
+
 E = E.upper()
 if "L" in E:
     keywordSort10(rows)
@@ -641,8 +691,8 @@ if "M" in E:
     SkrivMotor10(rows)
 if "E" in E:
     SkrivEgenprovning10(rows)
-# if "L" in E or "A" in E:
-
+if "A" in E:
+    skrivAvrop(rows)
 
 wb.save('AS1_genererad.xlsx')
 print("Done")

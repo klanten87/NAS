@@ -161,21 +161,24 @@ def keywordSort10(rows):
     best = 1
     larm = 1
     inst = 1
+    system = "not Set"
     for i in range(7,rows):
         system = AS1.cell(row=i, column=2).font
         if system.b is True:
             material += 1
             larm += 1
             inst += 1
-            Listor.cell(row=material, column=7).value = AS1.cell(row=i, column=2).value
+            system = AS1.cell(row=i, column=2).value
+            Listor.cell(row=material, column=7).value = system
             Listor.cell(row=material, column=7).font = Font(bold=True)
-            Listor.cell(row=larm, column=1).value = AS1.cell(row=i, column=2).value
+            Listor.cell(row=larm, column=1).value = system
             Listor.cell(row=larm, column=1).font = Font(bold=True)
-            Listor.cell(row=inst, column=12).value = AS1.cell(row=i, column=2).value
+            Listor.cell(row=inst, column=12).value = system
             Listor.cell(row=inst, column=12).font = Font(bold=True)
             material += 1
             larm += 1
             inst += 1
+
 
         C = AS1.cell(row=i, column=3).value
         CBold = AS1.cell(row=i, column=3).font
@@ -185,51 +188,85 @@ def keywordSort10(rows):
                 C = "".join(C)
             row_add = sort[C](i,material,larm,inst)
             row_add = list(row_add)
-            material += int(row_add[0])
-            larm += int(row_add[1])
+            larm += int(row_add[0])
+            material += int(row_add[1])
             inst += int(row_add[2])
-
-
 
 
 def Avluftsspjall(i,material,larm,inst):
     #Material
     #Beställning
-    return("000")
+    skrivMaterial(i, material)
+    return("010")
+
+
 def Avluftstemperatur(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Givarfel 30 s
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    return("110")
+
+
 def Brandspjall(i,material,larm,inst):
     #Material
     #Larm - Brandspjäll fel läge 2 m
     #Inställning - Motionering Söndag 23:55-23:59
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Brandspjäll i fel läge", "", "B", "5 m")
+    skrivInst(i, inst, "Motionering av brandspjäll", "Söndag 23:55-23:59")
+    return("111")
+
+
 def Differenstryckgivare(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Givarfel 30 s
     #Larm - Regleravvikelse +/-3KPa 15 m
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    larm += 1
+    skrivLarm(i, larm, "Regleravvikelse", "+/-3 kPa", "C", "60 m")
+    skrivInst(i, inst, "Börvärde differenstryck", "50 kPa")
+    return("211")
+
+
 def Elmatare(i,material,larm,inst):
     #Material
-    return("000")
+    skrivMaterial(i, material)
+    return("010")
+
+
 def Expansionskarl(i,material,larm,inst):
     #Larm - Låg tryck expansionkälr 2 m
-    return("000")
+    skrivLarm(i, larm, "Lågt tryck expansionskärl", "1 bar", "B", "2 m")
+    return("100")
+
+
 def Filtervakt(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Smutsiga filter 15 m
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Smutsiga filter", "70 Pa", "B", "2 m")
+    return("110")
+
+
 def Flodesgivare(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Givarfel 30 s
     #Larm - Regleravvikelse 15 l/s 15 m
     #Inställning - Börvärde flöde Min/Max	15/30 l/s
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    larm += 1
+    skrivLarm(i, larm, "Regleravvikelse", "+/-15 l/s", "C", "60 m")
+    skrivInst(i, inst, "Börvärde flöde Min/Max", "15/30 l/s")
+    return("211")
+
+
 def Framledningstemperatur(i,material,larm,inst):
     #Material
     #Beställning
@@ -237,53 +274,83 @@ def Framledningstemperatur(i,material,larm,inst):
     #Larm - Regleravvikelse +/-3°C 15 m
     #Inställning - Börvärde Utetemp X -20°C, -10°C, 0°C, 10°C, 20°C
     #Inställning - Börvärde framledning 65°C, 55°C, 47°, 32°C, 20°C
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    larm += 1
+    skrivLarm(i, larm, "Regleravvikelse", "+/-3°C", "C", "60 m")
+    skrivInst(i, inst, "Börvärde Utetemp X", "-20°C, -10°C, 0°C, 10°C, 20°C")
+    inst += 1
+    skrivInst(i, inst, "Börvärde framledning Y", "65°C, 55°C, 47°, 32°C, 20°C")
+    return("212")
+
+
 def Frysskyddstemperatur(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Givarfel 30 s
     #Larm - Frysvaktslarm 7°C A 3 s
     #Inställning - Varmhållning vid stillastående 20°C
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    larm += 1
+    skrivLarm(i, larm, "Frysskyddslarm", "7°C", "A", "3 s")
+    skrivInst(i, inst, "Varmhållning vid stillastående", "20°C")
+    return("211")
+
+
 def Franluftsflakt(i,material,larm,inst):
     #Material
     #Larm - Driftfel frånluftsfläkt 2 m
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Driftfel", "", "B", "2 m")
+    return("110")
+
+
 def Franluftsspjall(i,material,larm,inst):
     #Material
     #Beställning
-    return("000")
+    skrivMaterial(i, material)
+    return("010")
+
+
 def Franluftstemperatur(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Givarfel 30 s
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    return("110")
+
+
 def Kallvattenmatare(i,material,larm,inst):
     #Material
     #Beställning
-    return("000")
+    skrivMaterial(i, material)
+    return("010")
+
+
 def Kylmaskin(i,material,larm,inst):
     #Material
     #Larm - Summalarm Kylmaskin 30 s
-    return("000")
+    skrivLarm(i, larm, "Summalarm kylmaskin", "", "B", "10 s")
+    return("100")
+
+
 def Larm(i,material,larm,inst):
     #Larm - %%Benämning%% 10 s
-    return("000")
+    text = AS1.cell(row=i, column=5).value
+    skrivLarm(i,larm,text,"","B","10 s")
+    return("100")
+
+
 def Ljusgivare(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Givarfel
     #Inställning - Ljusnivå 80 Lux
-    Listor.cell(row=material, column=7).value = AS1.cell(row=i,column=2).value
-    Listor.cell(row=material, column=8).value = AS1.cell(row=i, column=3).value
-    Listor.cell(row=material, column=9).value = AS1.cell(row=i, column=5).value
-    Listor.cell(row=larm, column=1).value = AS1.cell(row=i, column=2).value
-    Listor.cell(row=larm, column=2).value = "Givarfel"
-    Listor.cell(row=larm, column=3).value = "B"
-    Listor.cell(row=larm, column=5).value = "30s"
-    Listor.cell(row=inst, column=12).value = AS1.cell(row=i, column=2).value
-    Listor.cell(row=inst, column=13).value = "Ljusnivå gräns dag"
-    Listor.cell(row=inst, column=14).value = "80 lux"
+    skrivMaterial(i,material)
+    skrivLarm(i,larm,"Givarfel","","B","30 s")
+    skrivInst(i,inst,"Ljusnivå dag","80 lux")
     return("111")
 
 
@@ -293,18 +360,36 @@ def Luftkvalitegivare(i,material,larm,inst):
     #Larm - Givarfel 30 s
     #Larm - Hög CO²-halt 900ppm 15 m
     #Inställning - Börvärde Luftkvalité 800 ppm
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    larm += 1
+    skrivLarm(i, larm, "Hög CO²-halt", "900ppm", "B", "5 m")
+    skrivInst(i, inst, "Börvärde luftkvalité", "800 ppm")
+    return("211")
+
+
 def Pump(i,material,larm,inst):
     #Material
     #Larm - Driftfel pump 2 m
     #Inställning - Pumpstart 7°C
     #Inställning - Pumpstopp 17°C
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Driftfel", "", "B", "2 m")
+    skrivInst(i, inst, "Pumpstart om utetemp <", "7°C")
+    inst += 1
+    skrivInst(i, inst, "Pumpstopp om utetemp >", "17°C")
+    return("112")
+
+
 def Returledningstemperatur(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Givarfel 30 s
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    return("110")
+
+
 def Rumstemperatur(i,material,larm,inst):
     #Material
     #Beställning
@@ -312,40 +397,80 @@ def Rumstemperatur(i,material,larm,inst):
     #Larm - Hög rumstemperatur 23°C 15m
     #Larm - Låg rumstemperatur 17°C 15m
     #Inställning - Börvärde rumstemperatur 21°C
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    larm += 1
+    skrivLarm(i, larm, "Hög rumstemperatur", "23°C", "B", "30 s")
+    larm += 1
+    skrivLarm(i, larm, "Låg rumstemperatur","17°C", "B", "5 m")
+    skrivInst(i, inst, "Börvärde rumstemperatur", "21°C")
+    return("311")
+
+
 def Rokdetektor(i,material,larm,inst):
     ##Material
     #Beställning
     #Larm - Utlöst rökdetektor 10 s
     #Larm - Servicelarm rökdetektor 10 s
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Utlöst rökdetektor", "", "A", "10 s")
+    larm += 1
+    skrivLarm(i, larm, "Servicelarm rökdetektor", "", "B", "10s")
+    return("210")
+
+
 def Spjallstalldon(i,material,larm,inst):
     #Material
     #Beställning
-    return("000")
+    skrivMaterial(i, material)
+    return("010")
+
+
 def Tidkanal(i,material,larm,inst):
     #Inställning - %%Benämning%% M-F 07:00-16:00
-    return("000")
+    text = AS1.cell(row=i, column=5).value
+    skrivInst(i, inst, text, "M-F 07:00-16:00")
+    return("001")
+
+
 def Tilluftsflakt(i,material,larm,inst):
     #Material
     #Larm - Driftfel tilluftsfläkt 2 m
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Driftfel", "", "B", "2 m")
+    return("110")
+
+
 def Tilluftsspjall(i,material,larm,inst):
     #Material
     #Beställning
-    return("000")
+    skrivMaterial(i, material)
+    return("010")
+
+
 def Tilluftstemperatur(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Givarfel 30 s
     #Larm - Regleravvikelse +/-3°C 15m
     #Inställning - Börvärde tilluftstemp 19°C
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    larm += 1
+    skrivLarm(i, larm, "Regleravvikelse", "+/-3°C", "B", "60 m")
+    skrivInst(i, inst, "Börvärde tilluftstemperatur", "19°C")
+    return("211")
+
+
 def TilluftstemperaturVVX(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Givarfel 30 s
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    return("110")
+
+
 def Tryckgivare(i,material,larm,inst):
     #Material
     #Beställning
@@ -353,91 +478,161 @@ def Tryckgivare(i,material,larm,inst):
     #Larm - Regleravvikelse +/-10Pa 15m
     #Larm - Fläktvakt 50Pa 5m
     #Inställning - Börvärde tryck 150 Pa
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    larm += 1
+    skrivLarm(i, larm, "Regleravvikelse", "+/-15 Pa", "B", "60 m")
+    larm += 1
+    skrivLarm(i, larm, "Fläktvakt", "<50 Pa", "B", "15 m")
+    skrivInst(i, inst, "Tryckbörvärde", "150 Pa")
+    return("311")
+
+
 def Tryckvakt(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Driftfel 30 s
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Driftfel", "30 Pa", "B", "2 m")
+    return("110")
+
+
 def Flaktvakt(i,material,larm,inst):
     #Material
     #Beställning
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Driftfel", "30 Pa", "B", "2 m")
     #Larm - Driftfel 30 s
-    return("000")
+    return("110")
+
+
 def Uteluftsspjall(i,material,larm,inst):
     #Material
     #Beställning
-    return("000")
+    skrivMaterial(i, material)
+    return("010")
+
+
 def Uteluftskanalstemperatur(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Givarfel 30 s
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    return("110")
+
+
 def Utomhustemperatur(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Givarfel 30 s
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    return("110")
+
+
 def Varmvattenmatare(i,material,larm,inst):
     #Material
     #Beställning
-    return("000")
+    skrivMaterial(i, material)
+    return("010")
+
+
 def VAVspjall(i,material,larm,inst):
     #Material
-    return("000")
+    skrivMaterial(i, material)
+    return("010")
+
+
 def Ventilstalldon(i,material,larm,inst):
     #Material
     #Beställning
-    return("000")
+    skrivMaterial(i, material)
+    return("010")
+
+
 def VVCtemperatur(i,material,larm,inst):
     #Material
     #Beställning
     #Larm - Givarfel 30 s
     #Larm - Låg returtempertur 40°C 15 m
-    return("000")
+    skrivMaterial(i, material)
+    skrivLarm(i, larm, "Givarfel", "", "B", "30 s")
+    larm += 1
+    skrivLarm(i, larm, "Låg returtempertur", "<40°C", "B", "15 m")
+    return("210")
+
+
 def Varmemangdsmatare(i,material,larm,inst):
     #Material
     #Beställning
-    return("000")
+    skrivMaterial(i, material)
+    return("010")
+
+
 def Varmevaxlare(i,material,larm,inst):
     #Larm - Summalarm 10s
     #Larm - Låg verkningsgrad 50% 30 m
-    return("000")
+    skrivLarm(i, larm, "Summalarm", "", "B", "10 s")
+    larm += 1
+    skrivLarm(i, larm, "Låg verkningsgrad", "<50%", "B", "30 m")
+    return("200")
+
+
 def Forlangdventilation(i,material,larm,inst):
     #Material
     #Beställning
     #Instälning - Eftergångstid 1 timme
-    return("000")
+    skrivMaterial(i, material)
+    skrivInst(i, inst, "Eftergångstid", "1 timme")
+    return("011")
+
+
 def Serviceomkopplare(i,material,larm,inst):
     #Larm - Serviceomkopplare i fel läge 10s
-    return("000")
+    skrivLarm(i, larm, "Serviceomkopplare i fel läge", "", "B", "10 s")
+    return("100")
+
+
 def Elbatteri(i,material,larm,inst):
     #Material
     #Larm - Överhettningslarm
     #Inställningsvärde - Eftergångstid 5m
-    return("000")
+    skrivMaterial(i, material)
+    skrivInst(i, inst, "Efterblåsning tilluft", "5 m")
+    return("011")
 
 
+def skrivInst(i,inst,obj,levinst):
+    Listor.cell(row=inst, column=12).value = AS1.cell(row=i, column=2).value
+    Listor.cell(row=inst, column=13).value = obj
+    Listor.cell(row=inst, column=14).value = levinst
 
 
-# def skrivInstallning10(i,C,inst):
-#     #Kollar nyckelord och skriver ut rätt fras och inställningsvärde
-#     #Problem, vilken rad ska jag skriva på?
-#
-#     if "Frysskyddsgivare" in C:
-#         Listor.cell(row=inst, column=11).value =  AS1.cell(row=i, column=2).value
-#         Listor.cell(row=inst, column=12).value = "Varmhållning"
+def skrivLarm(i,larm,text,level,klass,delay):
+    Listor.cell(row=larm, column=1).value = AS1.cell(row=i, column=2).value
+    Listor.cell(row=larm, column=2).value = text
+    Listor.cell(row=larm, column=3).value = klass
+    Listor.cell(row=larm, column=4).value = level
+    Listor.cell(row=larm, column=5).value = delay
 
 
-# def skrivBeställning10(row):
-    #Hämtar beställningsunderlag från rad som fås från keywordSort och skriver till Beställningslistan
-    #så kollar man om det finns någon som heter lika i fabrikat och typ, summerar och sedan lägger
-    # sedan den i en array som man kollar
-    #det första man gör i funktionen och breakar funktionen. Annan lev sorteras bort
+def skrivMaterial(i,material):
+    fabrikat = AS1.cell(row=i, column=4).value
+    typ = AS1.cell(row=i, column=4).value
+    Listor.cell(row=material, column=7).value = AS1.cell(row=i, column=2).value
+    Listor.cell(row=material, column=8).value = AS1.cell(row=i, column=3).value
+    if fabrikat is not None and typ is not None and fabrikat in typ:
+        Listor.cell(row=material, column=9).value = typ
+    elif fabrikat is not None and typ is not None:
+        Listor.cell(row=material, column=9).value = fabrikat + " " + typ
+    else:
+        Listor.cell(row=material, column=9).value = typ
 
-# def skrivMaterial10(row):
-    #
+
 E = E.upper()
+if "L" in E:
+    keywordSort10(rows)
 if "B" in E:
     systemName10(rows)
 if "S" in E:
@@ -447,7 +642,6 @@ if "M" in E:
 if "E" in E:
     SkrivEgenprovning10(rows)
 # if "L" in E or "A" in E:
-keywordSort10(rows)
 
 
 wb.save('AS1_genererad.xlsx')

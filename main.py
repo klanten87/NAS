@@ -63,7 +63,11 @@ def writeSign(i, skylt, typ):   #KLAR tillhör SkrivSkylt10
     Skyltlista.cell(row=skylt, column=2).value = "TYP " + typ
     Skyltlista.cell(row=skylt, column=8).value = "1"
     Skyltlista.cell(row=skylt, column=10).value = AS1.cell(row=i, column=2).value.upper()
-    Skyltlista.cell(row=skylt, column=11).value = AS1.cell(row=i, column=3).value.upper()
+    C = AS1.cell(row=i, column=3).value.upper()
+    if "TEMPERATUR" in C:
+        Skyltlista.cell(row=skylt, column=11).value = "TEMPERATURGIVARE"
+    else:
+        Skyltlista.cell(row=skylt, column=11).value = C
     if "200" in typ:
         Skyltlista.cell(row=skylt, column=12).value = AS1.cell(row=5, column=2).value.upper()
 

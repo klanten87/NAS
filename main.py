@@ -4,7 +4,7 @@ from datetime import datetime
 
 startTimeAll = datetime.now()
 
-wb = load_workbook('AS1.xls', keep_vba=True)      #Laddar dokument
+wb = load_workbook('AS1.xlsx', keep_vba=True)      #Laddar dokument
 AS1 = wb['AS1']                     #Laddar flik AS1
 rows = AS1.max_row + 1              #Kollar vilken sista raden ar
 E = AS1.cell(row=2, column=5).value #Laddar vilka skript som ska köras.
@@ -715,6 +715,6 @@ if "A" in E:
     print("Avrop klar, tog " + str(datetime.now() - startTime))
 
 startTime = datetime.now()
-wb.save('AS1_genererad.xls')
+wb.save('AS1_genererad.xlsx')
 print("Sparat filen, tog " + str(datetime.now() - startTime))
 print("Done in " + str(datetime.now() - startTimeAll))

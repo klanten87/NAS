@@ -2,9 +2,9 @@ from openpyxl import load_workbook
 from openpyxl.styles import Font
 from datetime import datetime
 
-startTime = datetime.now()
+startTimeAll = datetime.now()
 
-wb = load_workbook('AS1.xlsx')      #Laddar dokument
+wb = load_workbook('AS1.xls', keep_vba=True)      #Laddar dokument
 AS1 = wb['AS1']                     #Laddar flik AS1
 rows = AS1.max_row + 1              #Kollar vilken sista raden ar
 E = AS1.cell(row=2, column=5).value #Laddar vilka skript som ska köras.
@@ -688,18 +688,33 @@ def skrivAvrop(rows):
 
 
 E = E.upper()
+print("Laddning av fliker klar, tog " + str(datetime.now() - startTimeAll))
 if "L" in E:
+    startTime = datetime.now()
     keywordSort10(rows)
+    print("Sortering klar, tog " + str(datetime.now() - startTime))
 if "B" in E:
+    startTime = datetime.now()
     systemName10(rows)
+    print("Beteckningar klar, tog " + str(datetime.now() - startTime))
 if "S" in E:
+    startTime = datetime.now()
     SkrivSkylt10(rows)
+    print("Skyltlista klar, tog " + str(datetime.now() - startTime))
 if "M" in E:
+    startTime = datetime.now()
     SkrivMotor10(rows)
+    print("Motorprovning klar, tog " + str(datetime.now() - startTime))
 if "E" in E:
+    startTime = datetime.now()
     SkrivEgenprovning10(rows)
+    print("Egenprovning klar, tog " + str(datetime.now() - startTime))
 if "A" in E:
+    startTime = datetime.now()
     skrivAvrop(rows)
+    print("Avrop klar, tog " + str(datetime.now() - startTime))
 
-wb.save('AS1_genererad.xlsx')
-print("Done in " + str(datetime.now() - startTime))
+startTime = datetime.now()
+wb.save('AS1_genererad.xls')
+print("Sparat filen, tog " + str(datetime.now() - startTime))
+print("Done in " + str(datetime.now() - startTimeAll))

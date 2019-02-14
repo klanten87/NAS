@@ -1,9 +1,12 @@
 from openpyxl import load_workbook
 from openpyxl.styles import Font
+from datetime import datetime
+
+startTime = datetime.now()
 
 wb = load_workbook('AS1.xlsx')      #Laddar dokument
 AS1 = wb['AS1']                     #Laddar flik AS1
-rows = AS1.max_row                  #Kollar vilken sista raden ar
+rows = AS1.max_row + 1              #Kollar vilken sista raden ar
 E = AS1.cell(row=2, column=5).value #Laddar vilka skript som ska köras.
 Skyltlista = wb['Skyltlista']       # Laddar flik Skyltlista
 Listor = wb['Listor']               # Laddar flik Listor
@@ -603,13 +606,13 @@ def Elbatteri(i,material,larm,inst):
     return("011")
 
 
-def skrivInst(i,inst,obj,levinst):
+def skrivInst(i, inst, obj, levinst):
     Listor.cell(row=inst, column=12).value = AS1.cell(row=i, column=2).value
     Listor.cell(row=inst, column=13).value = obj
     Listor.cell(row=inst, column=14).value = levinst
 
 
-def skrivLarm(i,larm,text,level,klass,delay):
+def skrivLarm(i, larm, text, level, klass, delay):
     Listor.cell(row=larm, column=1).value = AS1.cell(row=i, column=2).value
     Listor.cell(row=larm, column=2).value = text
     Listor.cell(row=larm, column=3).value = klass
@@ -617,7 +620,7 @@ def skrivLarm(i,larm,text,level,klass,delay):
     Listor.cell(row=larm, column=5).value = delay
 
 
-def skrivMaterial(i,material):
+def skrivMaterial(i, material):
     fabrikat = AS1.cell(row=i, column=4).value
     typ = AS1.cell(row=i, column=5).value
     Listor.cell(row=material, column=7).value = AS1.cell(row=i, column=2).value
@@ -695,4 +698,4 @@ if "A" in E:
     skrivAvrop(rows)
 
 wb.save('AS1_genererad.xlsx')
-print("Done")
+print("Done in " + str(datetime.now() - startTime))
